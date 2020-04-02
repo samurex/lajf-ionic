@@ -1,0 +1,7 @@
+{
+  "name": "lajf",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
