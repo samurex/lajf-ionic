@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Declare my health</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="declareForm" novalidate (ngSubmit)="declare(declareForm)">
+    <ion-img src="../../assets/undraw_faq_rjoy.png"></ion-img>
+    <ion-list lines="full">
+      <ion-item>
+        <ion-label position="floating">Question 1</ion-label>
+        <ion-input formControlName="question_1"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Question 2</ion-label>
+        <ion-input formControlName="question_2"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Question 3</ion-label>
+        <ion-input formControlName="question_3"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-range formControlName="temperature" min="36" max="42" step="1" value="36" snaps pin color="dark">
+          <ion-icon slot="start" size="small" color="primary" name="thermometer"></ion-icon>
+          <ion-icon slot="end" color="danger" name="thermometer"></ion-icon>
+        </ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-label>Share with others</ion-label>
+        <ion-toggle formControlName="share"></ion-toggle>
+      </ion-item>
+    </ion-list>
+    <div class="ion-padding">
+      <ion-button type="submit" fill="solid" expand="block" color="primary" size="large">Declare my health</ion-button>
+    </div>
+  </form>
+</ion-content>

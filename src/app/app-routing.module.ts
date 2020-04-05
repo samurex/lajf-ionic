@@ -2,6 +2,15 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
+  {
+    path: 'auth',
+    loadChildren: () => import('@lajf-app/auth/auth-routing.module').then(m => m.AuthRoutingModule),
+  },
+  {
+    path: 'health',
+    loadChildren: () => import('@lajf-app/health/health-routing.module').then(m => m.HealthRoutingModule),
+  },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   {
