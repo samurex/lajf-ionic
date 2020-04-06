@@ -37,11 +37,8 @@ export class AuthService {
   }
 
   public register(registerData: RegisterData): Observable<AuthUser> {
-    return this.http.get<void>(`${BASE_URL}/sanctum/csrf-cookie`, { withCredentials: true })
-      .pipe(
-        mergeMap(_ => this.http.post<AuthUser>('auth/register', {...registerData }, { withCredentials: true })),
-        this.setAuth()
-      );
+    return this.http.post<AuthUser>('auth/register', {...registerData })
+      .pipe(this.setAuth());
   }
 
   public logout(): Observable<void> {

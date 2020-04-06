@@ -1,33 +1,19 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuestGuard } from '@lajf-app/auth/guards';
+import { HealthGuard } from '@lajf-app/health/guards';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
   {
     path: 'auth',
+    canActivate: [AuthGuestGuard],
     loadChildren: () => import('@lajf-app/auth/auth-routing.module').then(m => m.AuthRoutingModule),
   },
   {
     path: 'health',
+    canActivate: [HealthGuard],
     loadChildren: () => import('@lajf-app/health/health-routing.module').then(m => m.HealthRoutingModule),
-  },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
-  {
-    path: 'start',
-    loadChildren: () => import('./start/start.module').then( m => m.StartPageModule)
-  },
-  {
-    path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
-  },
-  {
-    path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
-  },
-  {
-    path: 'declare',
-    loadChildren: () => import('./declare/declare.module').then( m => m.DeclarePageModule)
   },
 ];
 

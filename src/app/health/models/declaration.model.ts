@@ -4,4 +4,5 @@ export interface Declaration {
     question_2: string;
     question_3: string;
     temperature: number;
+    created_at: Date;
 }

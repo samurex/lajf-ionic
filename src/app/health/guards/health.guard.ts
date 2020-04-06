@@ -14,7 +14,7 @@ import { AuthService } from '@lajf-app/auth/services';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuestGuard implements CanActivate {
+export class HealthGuard implements CanActivate {
   constructor(public router: Router, private auth: AuthService) {}
 
   canActivate(
@@ -29,7 +29,7 @@ export class AuthGuestGuard implements CanActivate {
       filter(loaded => !!loaded),
       take(1),
       mergeMap(_ => this.auth.user$),
-      map(user => user ? this.router.parseUrl('/health/dashboard') : true),
+      map(user => !user ? this.router.parseUrl('/auth') : true),
     );
   }
 }

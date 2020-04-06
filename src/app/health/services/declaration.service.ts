@@ -12,4 +12,8 @@ export class DeclarationService {
   public create(declaration: Declaration) {
     return this.http.post<Declaration>('declare', { ...declaration });
   }
+
+  public latest() {
+      return this.http.get<Declaration>('latest');
+  }
 }
