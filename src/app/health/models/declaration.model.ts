@@ -5,4 +5,6 @@ export interface Declaration {
     question_3: string;
     temperature: number;
     created_at: Date;
+    latitude: number;
+    longitude: number;
 }
