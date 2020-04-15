@@ -41,8 +41,8 @@ export class AuthService {
       .pipe(this.setAuth());
   }
 
-  public logout(): Observable<void> {
-    return this.http.post<void>('auth/logout', {})
+  public logout(remove: boolean = false): Observable<void> {
+    return this.http.post<void>('auth/logout', { remove })
       .pipe(
         delayWhen(_ => from(Storage.remove({ key: AUTH_STORAGE_KEY }))),
         tap(_ => this.userSubject$.next(null)),

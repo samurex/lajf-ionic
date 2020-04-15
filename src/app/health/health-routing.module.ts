@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       { path: '', loadChildren: () => import('./pages').then(m => m.DashboardPageModule) },
       { path: 'dashboard', loadChildren: () => import('./pages').then(m => m.DashboardPageModule) },
-      { path: 'settings', loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule) },
+      { path: 'settings', loadChildren: () => import('./pages').then( m => m.SettingsPageModule) },
       { path: 'map', loadChildren: () => import('./pages').then( m => m.MapPageModule) }
     ],
   }
