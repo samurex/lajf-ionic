@@ -8,11 +8,12 @@
   <form>
     <ion-list lines="full">
       <ion-item>
-        <ion-label position="floating">Age</ion-label>
-        <ion-input type="number"></ion-input>
+        <ion-label position="stacked">Age</ion-label>
+        <ion-range min="0" max="120" step="1" value="0" pin color="dark">
+        </ion-range>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Gender</ion-label>
+        <ion-label position="stacked">Gender</ion-label>
         <ion-select>
           <ion-select-option value="male">Male</ion-select-option>
           <ion-select-option value="female">Female</ion-select-option>
@@ -20,16 +21,13 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">City</ion-label>
-        <ion-input></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Kids</ion-label>
-        <ion-input></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Occupation</ion-label>
-        <ion-input></ion-input>
+        <ion-label position="stacked">Occupation</ion-label>
+        <ion-select>
+          <ion-select-option value="full_time">Working full time</ion-select-option>
+          <ion-select-option value="part_time">Working part time</ion-select-option>
+          <ion-select-option value="unemployed">Unemployed</ion-select-option>
+          <ion-select-option value="retired">Retired</ion-select-option>
+        </ion-select>
       </ion-item>
     </ion-list>
     <div class="ion-padding">

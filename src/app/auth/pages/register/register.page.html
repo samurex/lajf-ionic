@@ -9,11 +9,12 @@
     <ion-img src="../../assets/undraw_add_document_0hek.png"></ion-img>
     <ion-list lines="full">
       <ion-item>
-        <ion-label position="floating">Age</ion-label>
-        <ion-input type="number" formControlName="age"></ion-input>
+        <ion-label position="stacked">Age</ion-label>
+        <ion-range formControlName="age" min="0" max="120" step="1" value="0" pin color="dark">
+        </ion-range>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Gender</ion-label>
+        <ion-label position="stacked">Gender</ion-label>
         <ion-select formControlName="gender">
           <ion-select-option value="male">Male</ion-select-option>
           <ion-select-option value="female">Female</ion-select-option>
@@ -21,17 +22,16 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">City</ion-label>
-        <ion-input formControlName="city"></ion-input>
+        <ion-label position="stacked">Occupation</ion-label>
+        <ion-select formControlName="occupation">
+          <ion-select-option value="full_time">Working full time</ion-select-option>
+          <ion-select-option value="part_time">Working part time</ion-select-option>
+          <ion-select-option value="unemployed">Unemployed</ion-select-option>
+          <ion-select-option value="retired">Retired</ion-select-option>
+        </ion-select>
       </ion-item>
-      <ion-item>
-        <ion-label position="floating">Kids</ion-label>
-        <ion-input formControlName="kids"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Occupation</ion-label>
-        <ion-input formControlName="occupation"></ion-input>
-      </ion-item>
+      <ion-input formControlName="city"></ion-input>
+      <ion-input formControlName="kids"></ion-input>
     </ion-list>
     <div class="ion-padding">
       <ion-button type="submit" fill="solid" expand="block" color="primary" size="large" [disabled]="!registerForm.valid">Go</ion-button>

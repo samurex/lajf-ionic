@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Declare my health</ion-title>
+    <ion-title>Declare my mood</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -9,22 +9,21 @@
     <ion-img src="../../assets/undraw_faq_rjoy.png"></ion-img>
     <ion-list lines="full">
       <ion-item>
-        <ion-label position="floating">Question 1</ion-label>
-        <ion-input formControlName="question_1"></ion-input>
+        <ion-label position="stacked">Your current mood</ion-label>
+        <ion-select formControlName="mood">
+          <ion-select-option value="full_time">Good</ion-select-option>
+          <ion-select-option value="part_time">Bad</ion-select-option>
+          <ion-select-option value="unemployed">Fetch these from db</ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Question 2</ion-label>
-        <ion-input formControlName="question_2"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Question 3</ion-label>
-        <ion-input formControlName="question_3"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-range formControlName="temperature" min="36" max="42" step="1" value="36" snaps pin color="dark">
-          <ion-icon slot="start" size="small" color="primary" name="thermometer"></ion-icon>
-          <ion-icon slot="end" color="danger" name="thermometer"></ion-icon>
+        <ion-label position="stacked">Put a number on how you feel</ion-label>
+        <ion-range formControlName="temperature" min="0" max="100" step="1" pin color="dark">
         </ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Share your feelings</ion-label>
+        <ion-textarea></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label>Share with others</ion-label>
@@ -32,7 +31,7 @@
       </ion-item>
     </ion-list>
     <div class="ion-padding">
-      <ion-button type="submit" fill="solid" expand="block" color="primary" size="large">Declare my health</ion-button>
+      <ion-button type="submit" fill="solid" expand="block" color="primary" size="large">Declare my mood</ion-button>
     </div>
   </form>
 </ion-content>
