@@ -31,7 +31,9 @@
       </ion-item>
     </ion-list>
     <div class="ion-padding">
-      <ion-button type="submit" fill="solid" expand="block" color="primary" size="large">Declare my mood</ion-button>
+      <ion-button type="submit" fill="solid" expand="block" color="primary" size="large" [disabled]="!declareForm.valid || !position">
+        Declare my mood
+      </ion-button>
     </div>
   </form>
 </ion-content>

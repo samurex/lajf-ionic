@@ -16,4 +16,8 @@ export class DeclarationService {
   public latest() {
       return this.http.get<Declaration>('latest');
   }
+
+  public map() {
+    return this.http.get<Declaration[]>('map');
+  }
 }

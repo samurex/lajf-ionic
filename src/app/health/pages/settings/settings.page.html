@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <form>
+  <form *ngIf="user$ | async; else loading" [formGroup]="settingsForm" novalidate (ngSubmit)="update(settingsForm)">
     <ion-list lines="full">
       <ion-item>
         <ion-label position="stacked">Age</ion-label>
@@ -34,7 +34,14 @@
       <ion-button type="submit" fill="solid" expand="block" color="primary" size="large">Update</ion-button>
     </div>
     <div class="ion-padding">
-      <ion-button type="button" fill="solid" expand="block" color="danger" fill="clear" size="small">Delete my account</ion-button>
+      <ion-button type="button" fill="solid" expand="block" color="danger" fill="clear" size="small" (click)="delete()">Delete my account</ion-button>
     </div>
   </form>
+  <ng-template #loading>
+    <ion-label>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+    </ion-label>
+  </ng-template>
 </ion-content>

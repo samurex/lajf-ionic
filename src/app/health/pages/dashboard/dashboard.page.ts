@@ -6,9 +6,8 @@ import { ModalController, IonRouterOutlet } from '@ionic/angular';
 import { DeclareModalComponent } from './declare-modal/declare-modal.component';
 import { UtilService } from '@lajf-app/core/services';
 import { DeclarationService } from '@lajf-app/health/services';
-
 import * as moment from 'moment';
-import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-dashboard',

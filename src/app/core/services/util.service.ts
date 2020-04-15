@@ -14,9 +14,10 @@ export class UtilService {
   wrapRequest<T>(
     request: Observable<T>,
     errorToast?: (_: any) => string,
-    successToast?: (_: any) => string
+    successToast?: (_: any) => string,
+    loadingText: string = null,
   ): Observable<T> {
-    this.loading.showLoading();
+    this.loading.showLoading(loadingText);
     return request
       .pipe(
         delayWhen(_ => from(this.loading.hideLoading())),

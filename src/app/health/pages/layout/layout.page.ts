@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UtilService } from '@lajf-app/core/services';
+import { UtilService, AlertService } from '@lajf-app/core/services';
 import { AuthService } from '@lajf-app/auth/services';
 import { Router } from '@angular/router';
 
@@ -10,18 +10,22 @@ import { Router } from '@angular/router';
 })
 export class LayoutPage implements OnInit {
   constructor(
+    private alertService: AlertService,
     private util: UtilService,
     private auth: AuthService,
     private router: Router,
      ) { }
 
-  logout() {
-    this.util.wrapRequest(this.auth.logout())
+  async logout() {
+    const decision = await this.alertService.confirm('Are you sure?');
+    if (decision) {
+      this.util.wrapRequest(this.auth.logout())
       .subscribe({
         complete: () => {
           this.router.navigate(['/auth']);
         },
       });
+    }
   }
 
   ngOnInit() {

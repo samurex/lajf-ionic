@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UtilService } from '@lajf-app/core/services';
+import { UtilService, ToastService } from '@lajf-app/core/services';
 import { DeclarationService } from '@lajf-app/health/services';
 import { ModalController } from '@ionic/angular';
 import { Declaration } from '@lajf-app/health/models';
+
+import { Plugins, GeolocationPosition } from '@capacitor/core';
+import { from, BehaviorSubject } from 'rxjs';
+import { mergeMap, catchError, map } from 'rxjs/operators';
+const { Geolocation } = Plugins;
 
 @Component({
   selector: 'app-declare-modal',
@@ -12,7 +17,7 @@ import { Declaration } from '@lajf-app/health/models';
   styleUrls: ['./declare-modal.component.scss'],
 })
 export class DeclareModalComponent implements OnInit {
-
+  private position: Promise<GeolocationPosition>;
   public declareForm: FormGroup;
 
   constructor(
@@ -21,6 +26,7 @@ export class DeclareModalComponent implements OnInit {
     private declarationService: DeclarationService,
     private util: UtilService,
     private modalController: ModalController,
+    private toast: ToastService,
   ) {
     this.declareForm = this.formBuilder.group({
       question_1: [null, null],
@@ -32,17 +38,35 @@ export class DeclareModalComponent implements OnInit {
    }
 
   dismiss(declaration: Declaration = null) {
-    this.modalController.dismiss(declaration);
+    return this.modalController.dismiss(declaration);
   }
-  ngOnInit() {}
+
+  ngOnInit() {
+    this.position = Geolocation.getCurrentPosition();
+  }
 
   declare(form: FormGroup): void {
     if (form.valid) {
-      this.util.wrapRequest(this.declarationService.create(form.value))
-        .subscribe({
-            next: declaration => this.dismiss(declaration),
-            error: err => console.log(err),
-          });
+      this.util.wrapRequest(
+          from(this.position),
+          () => 'Unable to get device location',
+          null,
+          'Waiting for GPS'
+      ).pipe(
+        map(position => ({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+         })
+        ),
+        mergeMap(position => {
+          return this.util.wrapRequest(
+            this.declarationService.create({ ...form.value, ...position })
+          );
+        }),
+      ).subscribe({
+        next: declaration => this.dismiss(declaration),
+        error: err => console.log(err),
+      });
     }
   }
 }

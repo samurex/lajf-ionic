@@ -9,8 +9,8 @@ import { skip, filter, concatMap } from 'rxjs/operators';
 })
 export class LoadingService {
   public isLoading$: Observable<boolean>;
-  private isLoadingSubject$: BehaviorSubject<boolean> = new BehaviorSubject<
-    boolean
+  private isLoadingSubject$: BehaviorSubject<{ loading: boolean, message?: string }> = new BehaviorSubject<
+  { loading: boolean, message?: string }
   >(null);
   private subscription: Subscription;
   private element: HTMLIonLoadingElement = null;
@@ -20,9 +20,9 @@ export class LoadingService {
     this.subscription = this.isLoadingSubject$
       .pipe(
         filter(l => l !== null),
-        concatMap(loading => {
+        concatMap(({ loading, message }) => {
           if (loading && this.stack++ === 0) {
-            return from(this.loadingController.create()
+            return from(this.loadingController.create({ message })
                   .then(element => element.present()));
           }
           if (!loading && --this.stack === 0) {
@@ -33,11 +33,11 @@ export class LoadingService {
       ).subscribe();
   }
 
-  async showLoading() {
-    this.isLoadingSubject$.next(true);
+  async showLoading(message: string = null) {
+    this.isLoadingSubject$.next({ loading: true, message });
   }
 
   async hideLoading() {
-    this.isLoadingSubject$.next(false);
+    this.isLoadingSubject$.next({ loading: false });
   }
 }
