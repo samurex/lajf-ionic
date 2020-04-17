@@ -20,11 +20,7 @@ export class LayoutPage implements OnInit {
     const decision = await this.alertService.confirm('Are you sure?');
     if (decision) {
       this.util.wrapRequest(this.auth.logout())
-      .subscribe({
-        complete: () => {
-          this.router.navigate(['/auth']);
-        },
-      });
+      .subscribe();
     }
   }
 

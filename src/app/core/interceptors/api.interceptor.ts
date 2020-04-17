@@ -4,6 +4,8 @@ import {
   HttpInterceptor,
   HttpRequest,
   HttpHeaders,
+  HttpResponse,
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
@@ -46,8 +48,7 @@ export class ApiInterceptor implements HttpInterceptor {
         }),
         catchError(async err => {
           if (err.status === 401) {
-            await Storage.clear();
-            this.router.navigate(['/auth']);
+            await this.auth.logout(false).toPromise();
           }
           throw err;
         })

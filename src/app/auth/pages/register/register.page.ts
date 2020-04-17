@@ -11,7 +11,7 @@ import { AuthService } from '@lajf-app/auth/services';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-
+  public age: number;
   public registerForm: FormGroup;
 
   constructor(
@@ -23,8 +23,6 @@ export class RegisterPage implements OnInit {
     this.registerForm = this.formBuilder.group({
       age: [null, Validators.required],
       gender: [null, Validators.required],
-      city: [null, null],
-      kids: [null, null],
       occupation:  [null, null]
     });
    }
@@ -32,7 +30,6 @@ export class RegisterPage implements OnInit {
   ngOnInit() {}
 
   register(form: FormGroup): void {
-    console.log('register', form.value);
     if (form.valid) {
       this.util.wrapRequest(this.auth.register(form.value))
         .subscribe({

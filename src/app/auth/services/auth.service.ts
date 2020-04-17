@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient, HttpBackend } from '@angular/common/http';
 import { from, pipe } from 'rxjs';
 import { tap, map, delayWhen, mergeMap, catchError } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { AuthUser, RegisterData } from '@lajf-app/auth/models';
 import { BASE_URL } from '@environments/environment';
 
 import { Plugins } from '@capacitor/core';
+import { Router } from '@angular/router';
 const { Storage } = Plugins;
 
 const AUTH_STORAGE_KEY = 'auth';
@@ -19,7 +20,7 @@ export class AuthService {
   private loadedSubject$ = new BehaviorSubject<boolean>(false);
   private userSubject$ = new BehaviorSubject<AuthUser>(null);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   public async setup() {
@@ -41,15 +42,13 @@ export class AuthService {
       .pipe(this.setAuth());
   }
 
-  public logout(remove: boolean = false): Observable<void> {
-    return this.http.post<void>('auth/logout', { remove })
-      .pipe(
-        catchError(async err => {
-          console.log(err);
-        }),
-        delayWhen(_ => from(Storage.remove({ key: AUTH_STORAGE_KEY }))),
-        tap(_ => this.userSubject$.next(null)),
-      );
+  public logout(api: boolean = true, remove: boolean = false): Observable<void> {
+    const obs = api ? this.http.post<void>('auth/logout', { remove }) : of(null);
+    return obs.pipe(
+      delayWhen(_ => from(Storage.remove({ key: AUTH_STORAGE_KEY }))),
+      tap(_ => this.userSubject$.next(null)),
+      tap(_ => this.router.navigateByUrl('/auth'))
+    );
   }
 
 

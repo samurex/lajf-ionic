@@ -30,8 +30,6 @@ export class SettingsPage implements OnInit {
     this.settingsForm = this.formBuilder.group({
       age: [null, Validators.required],
       gender: [null, Validators.required],
-      city: [null, null],
-      kids: [null, null],
       occupation:  [null, null]
     });
    }
@@ -60,12 +58,8 @@ export class SettingsPage implements OnInit {
   async delete() {
     const decision = await this.alertService.confirm('Are you sure?');
     if (decision) {
-      this.util.wrapRequest(this.auth.logout(true))
-      .subscribe({
-        complete: () => {
-          this.router.navigate(['/auth']);
-        },
-      });
+      this.util.wrapRequest(this.auth.logout(true, true))
+      .subscribe();
     }
   }
 }

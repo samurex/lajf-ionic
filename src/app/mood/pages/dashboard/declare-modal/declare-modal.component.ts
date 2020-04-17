@@ -33,7 +33,7 @@ export class DeclareModalComponent implements OnInit {
     this.declareForm = this.formBuilder.group({
       mood_id: [null, Validators.required],
       scale: [null, Validators.required],
-      feelings: [null, Validators.required],
+      feelings: [null, null],
       share: [false, null],
     });
    }
