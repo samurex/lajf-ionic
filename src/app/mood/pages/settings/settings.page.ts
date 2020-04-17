@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { UtilService, AlertService } from '@lajf-app/core/services';
 
-import {  UserService } from '@lajf-app/health/services';
+import {  UserService } from '@lajf-app/mood/services';
 import { Observable, of, from } from 'rxjs';
-import { User } from '@lajf-app/health/models';
+import { User } from '@lajf-app/mood/models';
 import { tap, mergeMap } from 'rxjs/operators';
 import { AuthService } from '@lajf-app/auth/services';
 

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LayoutPage } from '@lajf-app/health/pages';
+import { LayoutPage } from '@lajf-app/mood/pages';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 
@@ -28,4 +28,4 @@ const routes: Routes = [
   ],
   declarations: [LayoutPage],
 })
-export class HealthRoutingModule {}
+export class MoodRoutingModule {}

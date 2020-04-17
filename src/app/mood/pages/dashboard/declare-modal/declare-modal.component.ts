@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UtilService, ToastService } from '@lajf-app/core/services';
-import { DeclarationService } from '@lajf-app/health/services';
+import { DeclarationService, MoodService } from '@lajf-app/mood/services';
 import { ModalController } from '@ionic/angular';
-import { Declaration } from '@lajf-app/health/models';
+import { Declaration, Mood } from '@lajf-app/mood/models';
 
 import { Plugins, GeolocationPosition } from '@capacitor/core';
-import { from, BehaviorSubject } from 'rxjs';
+import { from, BehaviorSubject, Observable } from 'rxjs';
 import { mergeMap, catchError, map } from 'rxjs/operators';
 const { Geolocation } = Plugins;
 
@@ -17,6 +17,7 @@ const { Geolocation } = Plugins;
   styleUrls: ['./declare-modal.component.scss'],
 })
 export class DeclareModalComponent implements OnInit {
+  private moods$: Observable<Mood[]>;
   private position: Promise<GeolocationPosition>;
   public declareForm: FormGroup;
 
@@ -27,13 +28,13 @@ export class DeclareModalComponent implements OnInit {
     private util: UtilService,
     private modalController: ModalController,
     private toast: ToastService,
+    private moodService: MoodService,
   ) {
     this.declareForm = this.formBuilder.group({
-      question_1: [null, null],
-      question_2: [null, null],
-      question_3: [null, null],
-      temperature: [null, Validators.required],
-      share: [null, null],
+      mood_id: [null, Validators.required],
+      scale: [null, Validators.required],
+      feelings: [null, Validators.required],
+      share: [false, null],
     });
    }
 
@@ -43,6 +44,7 @@ export class DeclareModalComponent implements OnInit {
 
   ngOnInit() {
     this.position = Geolocation.getCurrentPosition();
+    this.moods$ = this.moodService.get();
   }
 
   declare(form: FormGroup): void {

@@ -29,7 +29,7 @@ export class AuthGuestGuard implements CanActivate {
       filter(loaded => !!loaded),
       take(1),
       mergeMap(_ => this.auth.user$),
-      map(user => user ? this.router.parseUrl('/health/dashboard') : true),
+      map(user => user ? this.router.parseUrl('/mood/dashboard') : true),
     );
   }
 }

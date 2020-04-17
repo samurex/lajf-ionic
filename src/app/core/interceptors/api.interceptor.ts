@@ -5,16 +5,20 @@ import {
   HttpRequest,
   HttpHeaders,
 } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Observable, combineLatest, merge} from 'rxjs';
-import { take, mergeMap, filter, tap } from 'rxjs/operators';
+import { take, mergeMap, filter, tap, catchError } from 'rxjs/operators';
 import { BASE_URL } from '@environments/environment';
 import { AuthService } from '@lajf-app/auth/services';
 import { TranslationService } from '@lajf-app/core/services';
 
+import { Plugins } from '@capacitor/core';
+const { Storage } = Plugins;
+
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
-  constructor(private auth: AuthService, private translate: TranslationService) {}
+  constructor(private auth: AuthService, private translate: TranslationService, private router: Router) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -39,6 +43,13 @@ export class ApiInterceptor implements HttpInterceptor {
 
           request = request.clone({ url, headers });
           return next.handle(request);
+        }),
+        catchError(async err => {
+          if (err.status === 401) {
+            await Storage.clear();
+            this.router.navigate(['/auth']);
+          }
+          throw err;
         })
       );
     }

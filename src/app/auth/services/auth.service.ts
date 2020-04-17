@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpBackend } from '@angular/common/http';
 import { from, pipe } from 'rxjs';
-import { tap, map, delayWhen, mergeMap } from 'rxjs/operators';
+import { tap, map, delayWhen, mergeMap, catchError } from 'rxjs/operators';
 import { AuthUser, RegisterData } from '@lajf-app/auth/models';
 import { BASE_URL } from '@environments/environment';
 
@@ -44,6 +44,9 @@ export class AuthService {
   public logout(remove: boolean = false): Observable<void> {
     return this.http.post<void>('auth/logout', { remove })
       .pipe(
+        catchError(async err => {
+          console.log(err);
+        }),
         delayWhen(_ => from(Storage.remove({ key: AUTH_STORAGE_KEY }))),
         tap(_ => this.userSubject$.next(null)),
       );

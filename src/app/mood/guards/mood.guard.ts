@@ -14,7 +14,7 @@ import { AuthService } from '@lajf-app/auth/services';
 @Injectable({
   providedIn: 'root'
 })
-export class HealthGuard implements CanActivate {
+export class MoodGuard implements CanActivate {
   constructor(public router: Router, private auth: AuthService) {}
 
   canActivate(

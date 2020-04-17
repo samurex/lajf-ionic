@@ -13,22 +13,20 @@
   <form [formGroup]="declareForm" novalidate (ngSubmit)="declare(declareForm)">
     <ion-img src="../../assets/undraw_faq_rjoy.png"></ion-img>
     <ion-list lines="full">
-      <ion-item>
+      <ion-item *ngIf="moods$ | async as moods">
         <ion-label position="stacked">Your current mood</ion-label>
-        <ion-select formControlName="mood">
-          <ion-select-option value="full_time">Good</ion-select-option>
-          <ion-select-option value="part_time">Bad</ion-select-option>
-          <ion-select-option value="unemployed">Fetch these from db</ion-select-option>
+        <ion-select formControlName="mood_id">
+          <ion-select-option *ngFor="let mood of moods" [value]="mood.id">{{ mood.name }}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Put a number on how you feel</ion-label>
-        <ion-range formControlName="temperature" min="0" max="100" step="1" pin color="dark">
+        <ion-range formControlName="scale" min="0" max="100" step="1" pin color="dark">
         </ion-range>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Share your feelings</ion-label>
-        <ion-textarea></ion-textarea>
+        <ion-textarea formControlName="feelings"></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label>Share with others</ion-label>

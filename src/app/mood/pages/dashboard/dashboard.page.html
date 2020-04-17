@@ -33,10 +33,6 @@
             <ion-label>Occupation</ion-label>
             <ion-note slot="end">{{ user.occupation }}</ion-note>
           </ion-item>
-          <ion-item>
-            <ion-label>Location</ion-label>
-            <ion-note slot="end">{{ user.city }}</ion-note>
-          </ion-item>
         </ion-list>
         <ng-template #userLoading>
           <ion-label>
@@ -48,22 +44,23 @@
       </div>
     </ion-card-content>
   </ion-card>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-subtitle>Male 43</ion-card-subtitle>
-      <ion-card-title>Happy</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-        <p>Is Happy - 93</p>
-    </ion-card-content>
-  </ion-card>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-subtitle>Female 33</ion-card-subtitle>
-      <ion-card-title>Sad</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-        <p>Is Sad - 34</p>
-    </ion-card-content>
-  </ion-card>
+  <div *ngIf="declarations$ | async as declarations; else declarationsLoading">
+    <ion-card *ngFor="let declaration of declarations">
+      <ion-card-header>
+        <ion-card-subtitle>{{ declaration.user.gender  | titlecase }} {{ declaration.user.age }} </ion-card-subtitle>
+        <ion-card-title>{{ declaration.mood.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+          <p>Is {{ declaration.mood.name }} - {{ declaration.scale }}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ng-template #declarationsLoading>
+    <ion-label>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+    </ion-label>
+  </ng-template>
 </ion-content>

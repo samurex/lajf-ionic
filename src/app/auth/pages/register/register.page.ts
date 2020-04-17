@@ -34,10 +34,9 @@ export class RegisterPage implements OnInit {
   register(form: FormGroup): void {
     console.log('register', form.value);
     if (form.valid) {
-      this.util.wrapRequest(this.auth.register(form.value), null,
-        _ => 'Welcome!'
-      ).subscribe({
-          next: _ => this.router.navigateByUrl('/health'),
+      this.util.wrapRequest(this.auth.register(form.value))
+        .subscribe({
+          next: _ => this.router.navigateByUrl('/mood'),
           error: err => console.log(err),
         });
     }

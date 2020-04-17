@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '@lajf-app/health/models';
+import { User } from '@lajf-app/mood/models';
 
 @Injectable({
   providedIn: 'root'

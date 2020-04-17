@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MAPBOX_TOKEN } from '@environments/environment';
 import { Plugins, GeolocationPosition } from '@capacitor/core';
-import { DeclarationService } from '@lajf-app/health/services';
+import { DeclarationService } from '@lajf-app/mood/services';
 import { UtilService } from '@lajf-app/core/services';
 import { from } from 'rxjs';
 import * as mapboxgl from 'mapbox-gl';

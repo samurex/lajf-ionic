@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '@lajf-app/health/services/user.service';
+import { UserService } from '@lajf-app/mood/services/user.service';
 import { Observable } from 'rxjs';
-import { User } from '@lajf-app/health/models';
+import { User, Declaration } from '@lajf-app/mood/models';
 import { ModalController, IonRouterOutlet } from '@ionic/angular';
 import { DeclareModalComponent } from './declare-modal/declare-modal.component';
 import { UtilService } from '@lajf-app/core/services';
-import { DeclarationService } from '@lajf-app/health/services';
+import { DeclarationService } from '@lajf-app/mood/services';
 import * as moment from 'moment';
 
 
@@ -17,6 +17,7 @@ import * as moment from 'moment';
 export class DashboardPage implements OnInit {
 
   public user$: Observable<User>;
+  public declarations$: Observable<Declaration[]>;
 
   constructor(
     private userService: UserService,
@@ -27,7 +28,11 @@ export class DashboardPage implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.loadDashboard();
+  }
+  private loadDashboard() {
     this.user$ = this.userService.get();
+    this.declarations$ = this.declarationService.map();
 
     this.declarationService
       .latest()
@@ -39,7 +44,6 @@ export class DashboardPage implements OnInit {
         }
       });
   }
-
   async openDeclarationModal() {
     const modal = await this.modalController.create({
       component: DeclareModalComponent,
@@ -48,5 +52,6 @@ export class DashboardPage implements OnInit {
     });
     await modal.present();
     const { data } = await modal.onWillDismiss();
+    this.loadDashboard();
   }
 }
