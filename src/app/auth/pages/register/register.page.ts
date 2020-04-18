@@ -11,7 +11,7 @@ import { AuthService } from '@lajf-app/auth/services';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  public age: number;
+  public age: number = 13;
   public registerForm: FormGroup;
 
   constructor(

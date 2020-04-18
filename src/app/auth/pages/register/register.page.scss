@@ -1,9 +1,25 @@
-ion-grid {
-    --ion-grid-padding: 0;
-}
-ion-col {
-    --ion-grid-column-padding: 0;
-}
-ion-img {
-    height: 30vh;
+.register {
+    padding: 30px;
+    .header {
+        margin-bottom: 20px;
+        h1 {
+            font-size: 32px;
+            font-weight: 900;
+        }
+        h3 {
+            font-size: 16px;
+            font-weight: 300;
+        }
+    }
+    .chips {
+        margin-left: -5px;
+        margin-right: -5px;
+        ion-chip {
+            font-weight: bold;
+        }
+        .active {
+            background: var(--ion-color-primary);
+            color: var(--ion-color-light);
+        }
+    }
 }
