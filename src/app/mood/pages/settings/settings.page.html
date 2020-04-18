@@ -6,9 +6,9 @@
 
 <ion-content>
   <form *ngIf="user$ | async; else loading" [formGroup]="settingsForm" novalidate (ngSubmit)="update(settingsForm)">
-    <ion-list lines="full">
-      <ion-item>
-        <ion-label position="stacked">Age</ion-label>
+    <ion-list lines="none">
+      <ion-item class="range">
+        <ion-label position="stacked">I am <strong>{{age}}</strong> years old</ion-label>
         <ion-range formControlName="age" min="0" max="120" step="1" pin color="dark">
         </ion-range>
       </ion-item>

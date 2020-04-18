@@ -34,6 +34,17 @@ body {
 ion-content {
     --background: #fff;
 }
+.header {
+    padding: 20px;
+    h1 {
+        font-size: 32px;
+        font-weight: 900;
+    }
+    h3 {
+        font-size: 16px;
+        font-weight: 300;
+    }
+}
 .range {
     ion-label {
         padding-bottom: 3px;
