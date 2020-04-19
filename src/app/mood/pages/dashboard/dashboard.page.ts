@@ -50,6 +50,7 @@ export class DashboardPage implements OnInit {
     const modal = await this.modalController.create({
       component: DeclareModalComponent,
       swipeToClose: true,
+      presentingElement: this.routerOutlet.nativeEl
     });
     await modal.present();
     await modal.onWillDismiss();

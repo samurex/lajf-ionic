@@ -36,6 +36,7 @@ ion-content {
 }
 .header {
     padding: 20px;
+    margin-top: env(safe-area-inset-top);
     h1 {
         font-size: 32px;
         font-weight: 900;
