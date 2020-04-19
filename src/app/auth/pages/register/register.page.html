@@ -1,16 +1,13 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>About yourself</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <div class="header">
+    <h1>How are you feeling today?</h1>
+    <h3>Declare your health and share with the world!</h3>
+  </div>
   <form [formGroup]="registerForm" novalidate (ngSubmit)="register(registerForm)">
-    <ion-img src="../../assets/undraw_add_document_0hek.png"></ion-img>
-    <ion-list lines="full">
-      <ion-item>
-        <ion-label position="stacked">Age</ion-label>
-        <ion-range formControlName="age" min="0" max="120" step="1" pin color="dark">
+    <ion-list lines="none">
+      <ion-item class="range">
+        <ion-label position="stacked">I am <strong>{{age}}</strong> years old</ion-label>
+        <ion-range formControlName="age" ng min="13" max="90" step="1" color="primary">
         </ion-range>
       </ion-item>
       <ion-item>

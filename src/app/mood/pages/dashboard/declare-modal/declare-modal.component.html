@@ -1,32 +1,71 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Declare my mood</ion-title>
-    <ion-buttons slot="primary">
-      <ion-button color="secondary" (click)="dismiss()">
-        <ion-icon slot="icon-only" color="light" name="close-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <div class="header">
+    <h1>How are you feeling today?</h1>
+    <h3>Declare your health and share with the world!</h3>
+  </div>
+  <div class="chips">
+    <ion-chip outline="true" color="primary" class="active">
+      <ion-icon name="heart" color="light"></ion-icon>
+      <ion-label>Good</ion-label>
+    </ion-chip>
+    <ion-chip outline="true" color="primary">
+      <ion-icon name="pin" color="primary"></ion-icon>
+      <ion-label>Bad</ion-label>
+    </ion-chip>
+    <ion-chip outline="true" color="primary">
+      <ion-icon name="pin" color="primary"></ion-icon>
+      <ion-label>Happy</ion-label>
+    </ion-chip>
+    <ion-chip outline="true" color="primary">
+      <ion-icon name="heart" color="primary"></ion-icon>
+      <ion-label>Sad</ion-label>
+    </ion-chip>
+    <ion-chip outline="true" color="primary">
+      <ion-icon name="pin" color="primary"></ion-icon>
+      <ion-label>Tired</ion-label>
+    </ion-chip>
+    <ion-chip outline="true" color="primary">
+      <ion-icon name="pin" color="primary"></ion-icon>
+      <ion-label>Bajs</ion-label>
+    </ion-chip>
+    <ion-chip outline="true" color="primary">
+      <ion-icon name="heart" color="primary"></ion-icon>
+      <ion-label>Good</ion-label>
+    </ion-chip>
+    <ion-chip outline="true" color="primary">
+      <ion-icon name="pin" color="primary"></ion-icon>
+      <ion-label>Bad</ion-label>
+    </ion-chip>
+    <ion-chip outline="true" color="primary">
+      <ion-icon name="pin" color="primary"></ion-icon>
+      <ion-label>Happy</ion-label>
+    </ion-chip>
+    <ion-chip outline="true" color="primary">
+      <ion-icon name="pin" color="primary"></ion-icon>
+      <ion-label>Sad</ion-label>
+    </ion-chip>
+    <ion-chip outline="true" color="primary">
+      <ion-icon name="pin" color="primary"></ion-icon>
+      <ion-label>Tired</ion-label>
+    </ion-chip>
+    <ion-chip outline="true" color="primary">
+      <ion-icon name="pin" color="primary"></ion-icon>
+      <ion-label>Bajs</ion-label>
+    </ion-chip>
+  </div>
   <form [formGroup]="declareForm" novalidate (ngSubmit)="declare(declareForm)">
-    <ion-img src="../../assets/undraw_faq_rjoy.png"></ion-img>
-    <ion-list lines="full">
-      <ion-item *ngIf="moods$ | async as moods">
-        <ion-label position="stacked">Your current mood</ion-label>
-        <ion-select formControlName="mood_id">
-          <ion-select-option *ngFor="let mood of moods" [value]="mood.id">{{ mood.name }}</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
+    <ion-list lines="none">
+      <ion-item class="range">
         <ion-label position="stacked">Put a number on how you feel</ion-label>
-        <ion-range formControlName="scale" min="0" max="100" step="1" pin color="dark">
+        <ion-range formControlName="scale" min="0" max="10" step="1" snaps="true" color="primary">
         </ion-range>
       </ion-item>
       <ion-item>
-        <ion-label position="stacked">Share your feelings</ion-label>
-        <ion-textarea formControlName="feelings"></ion-textarea>
+        <ion-label position="stacked">
+          Share your feelings
+          <span class="ion-float-right">0/300</span>
+        </ion-label>
+        <ion-textarea formControlName="feelings" rows="4" maxlength="300"></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label>Share with others</ion-label>

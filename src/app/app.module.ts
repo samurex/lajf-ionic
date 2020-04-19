@@ -25,7 +25,9 @@ function HttpLoaderFactory(handler: HttpBackend) {
   entryComponents: [],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      mode: 'ios'
+    }),
     AppRoutingModule,
     TranslateModule.forRoot({
       loader: {
