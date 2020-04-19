@@ -16,4 +16,4 @@ export const environment = {
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
 export const BASE_URL = 'https://lajf.aivaton.com';
 export const MAPBOX_TOKEN = 'pk.eyJ1Ijoic2FtdXJleCIsImEiOiJjazh5dXcxZTUwZTlxM2RvZ29oYjBoMG9mIn0.9Wa3pOrMEPGCeyQJYmtQTg';
-//export const BASE_URL = 'https://lajf.test';
+// export const BASE_URL = 'https://lajf.test';

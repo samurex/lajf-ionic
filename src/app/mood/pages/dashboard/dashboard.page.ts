@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '@lajf-app/mood/services/user.service';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { User, Declaration } from '@lajf-app/mood/models';
 import { ModalController, IonRouterOutlet } from '@ionic/angular';
 import { DeclareModalComponent } from './declare-modal/declare-modal.component';
@@ -8,6 +8,9 @@ import { UtilService } from '@lajf-app/core/services';
 import { DeclarationService } from '@lajf-app/mood/services';
 import * as moment from 'moment';
 
+import { Plugins } from '@capacitor/core';
+import { map } from 'rxjs/operators';
+const { Storage } = Plugins;
 
 @Component({
   selector: 'app-dashboard',
@@ -28,30 +31,30 @@ export class DashboardPage implements OnInit {
     ) { }
 
   ngOnInit() {
+    from(Storage.get({ key: 'last_declaration'}))
+      .subscribe({
+        next: async ({ value }) => {
+          if (!value || moment().diff(moment(value), 'hours') > 24) {
+            await this.openDeclarationModal();
+          }
+        }
+      });
     this.loadDashboard();
   }
   private loadDashboard() {
     this.user$ = this.userService.get();
     this.declarations$ = this.declarationService.map();
-
-    this.declarationService
-      .latest()
-      .subscribe({
-        next: async declaration => {
-          if (!declaration || moment().diff(moment(declaration.created_at), 'hours') > 24) {
-            await this.openDeclarationModal();
-          }
-        }
-      });
   }
+
   async openDeclarationModal() {
     const modal = await this.modalController.create({
       component: DeclareModalComponent,
       swipeToClose: true,
-      presentingElement: this.routerOutlet.nativeEl
     });
     await modal.present();
-    const { data } = await modal.onWillDismiss();
+    await modal.onWillDismiss();
+
+    Storage.set({key: 'last_declaration', value: moment().format() });
     this.loadDashboard();
   }
 }

@@ -27,11 +27,11 @@
           </ion-item>
           <ion-item>
             <ion-label>Gender</ion-label>
-            <ion-note slot="end">{{ user.gender }}</ion-note>
+            <ion-note slot="end">{{ user.gender | titlecase }}</ion-note>
           </ion-item>
           <ion-item>
             <ion-label>Occupation</ion-label>
-            <ion-note slot="end">{{ user.occupation }}</ion-note>
+            <ion-note slot="end">{{ user.occupation | titlecase }}</ion-note>
           </ion-item>
         </ion-list>
         <ng-template #userLoading>
@@ -47,7 +47,7 @@
   <div *ngIf="declarations$ | async as declarations; else declarationsLoading">
     <ion-card *ngFor="let declaration of declarations">
       <ion-card-header>
-        <ion-card-subtitle>{{ declaration.user.gender  | titlecase }} {{ declaration.user.age }} </ion-card-subtitle>
+        <ion-card-subtitle>{{ declaration.user.gender | titlecase }} {{ declaration.user.age }} </ion-card-subtitle>
         <ion-card-title>{{ declaration.mood.name }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>

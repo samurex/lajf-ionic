@@ -45,9 +45,9 @@ export class AuthService {
   public logout(api: boolean = true, remove: boolean = false): Observable<void> {
     const obs = api ? this.http.post<void>('auth/logout', { remove }) : of(null);
     return obs.pipe(
-      delayWhen(_ => from(Storage.remove({ key: AUTH_STORAGE_KEY }))),
+      delayWhen(_ => from(Storage.clear())),
       tap(_ => this.userSubject$.next(null)),
-      tap(_ => this.router.navigateByUrl('/auth'))
+      tap(_ => location.reload())
     );
   }
 

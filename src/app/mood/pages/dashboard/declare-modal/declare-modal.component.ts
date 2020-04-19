@@ -17,7 +17,7 @@ const { Geolocation } = Plugins;
   styleUrls: ['./declare-modal.component.scss'],
 })
 export class DeclareModalComponent implements OnInit {
-  private moods$: Observable<Mood[]>;
+  public moods$: Observable<Mood[]>;
   private position: Promise<GeolocationPosition>;
   public declareForm: FormGroup;
 
