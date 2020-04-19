@@ -6,7 +6,7 @@
   <form [formGroup]="registerForm" novalidate (ngSubmit)="register(registerForm)">
     <ion-list lines="none">
       <ion-item class="range">
-        <ion-label position="stacked">I am <strong>{{age}}</strong> years old</ion-label>
+        <ion-label position="stacked">I am <strong>{{ registerForm.value.age }}</strong> years old</ion-label>
         <ion-range formControlName="age" ng min="13" max="90" step="1" color="primary">
         </ion-range>
       </ion-item>

@@ -8,6 +8,8 @@ import { DashboardPageRoutingModule } from './dashboard-routing.module';
 
 import { DashboardPage } from './dashboard.page';
 import { DeclareModalComponent } from './declare-modal/declare-modal.component';
+import { ComponentsModule } from '@lajf-app/mood/components';
+
 
 @NgModule({
   imports: [
@@ -15,6 +17,7 @@ import { DeclareModalComponent } from './declare-modal/declare-modal.component';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
+    ComponentsModule,
     DashboardPageRoutingModule
   ],
   declarations: [DeclareModalComponent, DashboardPage],

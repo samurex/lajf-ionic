@@ -1,0 +1,10 @@
+.chips {
+    padding: 0 15px 20px 15px;
+    ion-chip {
+        font-weight: bold;
+    }
+    .active {
+        background: var(--ion-color-primary);
+        color: var(--ion-color-light);
+    }
+}

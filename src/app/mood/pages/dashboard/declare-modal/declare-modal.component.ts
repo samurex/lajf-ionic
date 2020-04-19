@@ -20,6 +20,7 @@ export class DeclareModalComponent implements OnInit {
   public moods$: Observable<Mood[]>;
   private position: Promise<GeolocationPosition>;
   public declareForm: FormGroup;
+  MAX_LENGTH = 300;
 
   constructor(
     private router: Router,
@@ -30,10 +31,11 @@ export class DeclareModalComponent implements OnInit {
     private toast: ToastService,
     private moodService: MoodService,
   ) {
+  
     this.declareForm = this.formBuilder.group({
       mood_id: [null, Validators.required],
       scale: [null, Validators.required],
-      feelings: [null, null],
+      feelings: ['', Validators.maxLength(this.MAX_LENGTH)],
       share: [false, null],
     });
    }

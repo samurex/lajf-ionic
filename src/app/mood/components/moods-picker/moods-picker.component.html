@@ -1,0 +1,13 @@
+<div class="chips">
+  <ion-chip
+      *ngFor="let mood of moods"
+      (click)="onTouched(); select(mood.id)"
+      outline="true"
+      color="primary"
+      [class.active]="moodId === mood.id">
+    <ion-icon 
+      name="heart" 
+      [color]="moodId === mood.id ? 'light' : 'primary'"></ion-icon>
+    <ion-label>{{ mood.name }}</ion-label>
+  </ion-chip>
+</div>
