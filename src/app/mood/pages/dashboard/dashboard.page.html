@@ -4,6 +4,9 @@
       Welcome to Lajf
     </ion-title>
   </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -12,6 +15,7 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  <!--
   <ion-card>
     <ion-card-header>
       <ion-card-subtitle>Your mood today</ion-card-subtitle>
@@ -44,16 +48,30 @@
       </div>
     </ion-card-content>
   </ion-card>
-  <div *ngIf="declarations$ | async as declarations; else declarationsLoading">
-    <ion-card *ngFor="let declaration of declarations">
-      <ion-card-header>
-        <ion-card-subtitle>{{ declaration.user.gender | titlecase }} {{ declaration.user.age }} </ion-card-subtitle>
-        <ion-card-title>{{ declaration.mood.name }}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-          <p>Is {{ declaration.mood.name }} - {{ declaration.scale }}</p>
-      </ion-card-content>
-    </ion-card>
+  -->
+  <div *ngIf="declarations$ | async as declarations; else declarationsLoading" class="ion-padding">
+    <div class="card" *ngFor="let declaration of declarations" style="background:url(http://placehold.it/360x220);border-color:#c9c;">
+      <!-- Click on front, show back-->
+      <div class="front">
+        <div class="user">
+          <span>21 years</span>
+          <span>Man</span>
+          <span>Nearby</span>
+        </div>
+        <div class="mood">
+          <span>a bit</span>
+          <span>annoyed</span>
+        </div>
+        <div class="likes" style="background:#c9c;">
+          <ion-icon name="heart"></ion-icon>
+          511
+        </div>
+      </div>
+      <!-- Click on back, show front-->
+      <div class="back" style="display:none">
+      
+      </div>
+    </div>
   </div>
 
   <ng-template #declarationsLoading>

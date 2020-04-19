@@ -8,7 +8,10 @@
     <moods-picker formControlName="mood_id" [moods]="moods$ | async"></moods-picker>
     <ion-list lines="none">
       <ion-item class="range">
-        <ion-label position="stacked">Put a number on how you feel  <strong *ngIf="declareForm.value.scale !== null">{{ declareForm.value.scale }}/{{ 10 }}</strong></ion-label>
+        <ion-label position="stacked">
+          Put a number on how you feel
+          <span *ngIf="declareForm.value.scale !== null" class="ion-float-right">{{ declareForm.value.scale }}/{{ 10 }}</span>
+        </ion-label>
         <ion-range formControlName="scale" min="0" max="10" step="1" snaps="true" color="primary">
         </ion-range>
       </ion-item>
@@ -19,6 +22,16 @@
         </ion-label>
         <ion-textarea formControlName="feelings" rows="4" maxlength="{{ MAX_LENGTH }}"></ion-textarea>
       </ion-item>
+    </ion-list>
+    <div class="ion-padding-horizontal ion-padding-bottom">
+      <!-- Only visible when image is uploaded-->
+      <ion-img src="http://placehold.it/360x180"></ion-img>
+      <ion-button fill="solid" expand="block" color="light">
+        <ion-icon slot="start" name="camera-outline"></ion-icon>
+        Add a photo
+      </ion-button>
+    </div>
+    <ion-list lines="none">
       <ion-item>
         <ion-label>Share with others</ion-label>
         <ion-toggle formControlName="share"></ion-toggle>
