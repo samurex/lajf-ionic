@@ -25,8 +25,8 @@
     </ion-list>
     <div class="ion-padding-horizontal ion-padding-bottom">
       <!-- Only visible when image is uploaded-->
-      <ion-img src="http://placehold.it/360x180"></ion-img>
-      <ion-button fill="solid" expand="block" color="light">
+      <ion-img *ngIf="photo" [src]="photo"src=""></ion-img>
+      <ion-button fill="solid" expand="block" color="light" (click)="takePicture()">
         <ion-icon slot="start" name="camera-outline"></ion-icon>
         Add a photo
       </ion-button>

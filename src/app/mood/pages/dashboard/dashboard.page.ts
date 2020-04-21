@@ -5,7 +5,7 @@ import { User, Declaration } from '@lajf-app/mood/models';
 import { ModalController, IonRouterOutlet } from '@ionic/angular';
 import { DeclareModalComponent } from './declare-modal/declare-modal.component';
 import { UtilService } from '@lajf-app/core/services';
-import { DeclarationService } from '@lajf-app/mood/services';
+import { DeclarationService, MoodService } from '@lajf-app/mood/services';
 import * as moment from 'moment';
 
 import { Plugins } from '@capacitor/core';
@@ -27,6 +27,7 @@ export class DashboardPage implements OnInit {
     private modalController: ModalController,
     private util: UtilService,
     private declarationService: DeclarationService,
+    private moodService: MoodService,
     private routerOutlet: IonRouterOutlet
     ) { }
 
@@ -47,6 +48,7 @@ export class DashboardPage implements OnInit {
   }
 
   async openDeclarationModal() {
+    let moods = await this.moodService.get();
     const modal = await this.modalController.create({
       component: DeclareModalComponent,
       swipeToClose: true,

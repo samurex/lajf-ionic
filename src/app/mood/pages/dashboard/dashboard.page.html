@@ -50,17 +50,17 @@
   </ion-card>
   -->
   <div *ngIf="declarations$ | async as declarations; else declarationsLoading" class="ion-padding">
-    <div class="card" *ngFor="let declaration of declarations" style="background:url(http://placehold.it/360x220);border-color:#c9c;">
+    <div class="card" *ngFor="let declaration of declarations" [ngStyle]="{ background: 'url(' +  (declaration.image_url || 'http://placehold.it/360x220')  + ')', 'border-color': '#c9c' }">
       <!-- Click on front, show back-->
       <div class="front">
         <div class="user">
-          <span>21 years</span>
-          <span>Man</span>
+          <span>{{ declaration.user.age }} years</span>
+          <span>{{ declaration.user.gender | titlecase }}</span>
           <span>Nearby</span>
         </div>
         <div class="mood">
           <span>a bit</span>
-          <span>annoyed</span>
+          <span>{{ declaration.mood.name | titlecase }}</span>
         </div>
         <div class="likes" style="background:#c9c;">
           <ion-icon name="heart"></ion-icon>
