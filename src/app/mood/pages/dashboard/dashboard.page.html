@@ -6,6 +6,10 @@
   </ion-toolbar>
   <ion-toolbar color="primary">
     <ion-searchbar></ion-searchbar>
+    <!-- <ion-searchbar type="text" (ionInput)="term$.next($event.target.value)"></ion-searchbar>
+    <ion-list *ngIf="results$ | async as results">
+        <ion-item *ngFor="let result of results">{{ results.name }}</ion-item>
+    </ion-list> -->
   </ion-toolbar>
 </ion-header>
 

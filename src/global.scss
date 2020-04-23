@@ -26,7 +26,7 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 @import "~mapbox-gl/dist/mapbox-gl.css";
-
+@import "~ionic4-auto-complete/auto-complete";
 
 body {
     background: #fff;
@@ -54,13 +54,14 @@ ion-content {
         --knob-background: var(--ion-color-primary);
     }
 }
-ion-input,
+
 ion-select {
     background: var(--ion-color-light);
     height: 50px;
     padding: 15px;
     border-radius: 10px;
 }
+ion-input,
 ion-textarea {
     --background: var(--ion-color-light) !important;
     margin-bottom: 20px;

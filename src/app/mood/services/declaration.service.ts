@@ -20,4 +20,8 @@ export class DeclarationService {
   public map() {
     return this.http.get<Declaration[]>('map');
   }
+
+  public dashboard({ latitude, longitude }: { latitude: number, longitude: number }) {
+    return this.http.get<Declaration[]>(`dashboard?latitude=${latitude || ''}&longitude=${longitude || ''}`);
+  }
 }

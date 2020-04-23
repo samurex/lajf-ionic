@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -10,6 +10,7 @@ import { Plugins, GeolocationPosition, CameraResultType, CameraSource } from '@c
 import { UtilService, ToastService } from '@lajf-app/core/services';
 import { DeclarationService, MoodService, UploadService } from '@lajf-app/mood/services';
 import { Declaration, Mood } from '@lajf-app/mood/models';
+import { debug } from 'util';
 
 
 const { Geolocation, Camera } = Plugins;
@@ -23,11 +24,11 @@ const { Geolocation, Camera } = Plugins;
 export class DeclareModalComponent implements OnInit {
   public photo: SafeResourceUrl;
   private uploadPromise: Promise<{id: number }> = Promise.resolve(null);
-
   public moods$: Observable<Mood[]>;
-  private position: Promise<GeolocationPosition>;
   public declareForm: FormGroup;
   MAX_LENGTH = 300;
+
+  @Input() position$: Observable<GeolocationPosition>;
 
   constructor(
     private router: Router,
@@ -44,6 +45,7 @@ export class DeclareModalComponent implements OnInit {
       mood_id: [null, Validators.required],
       scale: [null, Validators.required],
       feelings: ['', Validators.maxLength(this.MAX_LENGTH)],
+      hashtag: ['', Validators.maxLength(this.MAX_LENGTH)],
       image_id: [null, null],
       share: [false, null],
     });
@@ -54,8 +56,7 @@ export class DeclareModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.position = Geolocation.getCurrentPosition();
-    this.moods$ = this.moodService.get();
+    this.moods$ = this.moodService.moods$;
   }
 
   async takePicture() {
@@ -78,16 +79,7 @@ export class DeclareModalComponent implements OnInit {
               form.patchValue({ image_id: image.id });
             }
           }),
-          mergeMap(_ => this.util.wrapRequest(
-            from(this.position),
-            () => 'Unable to get device location',
-            null,
-            'Waiting for GPS'
-          )),
-          map(position => ({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          })),
+          mergeMap(_ => this.position$),
           mergeMap(position => {
             return this.util.wrapRequest(
               this.declarationService.create({ ...form.value, ...position })

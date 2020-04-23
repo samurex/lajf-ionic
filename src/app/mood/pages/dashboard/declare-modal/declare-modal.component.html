@@ -22,6 +22,12 @@
         </ion-label>
         <ion-textarea formControlName="feelings" rows="4" maxlength="{{ MAX_LENGTH }}"></ion-textarea>
       </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          Hashtag
+        </ion-label>
+        <ion-input formControlName="hashtag"></ion-input>
+      </ion-item>
     </ion-list>
     <div class="ion-padding-horizontal ion-padding-bottom">
       <!-- Only visible when image is uploaded-->
@@ -38,7 +44,7 @@
       </ion-item>
     </ion-list>
     <div class="ion-padding">
-      <ion-button type="submit" fill="solid" expand="block" color="primary" size="large" [disabled]="!declareForm.valid || !position">
+      <ion-button type="submit" fill="solid" expand="block" color="primary" size="large" [disabled]="!declareForm.valid">
         Declare my mood
       </ion-button>
     </div>
