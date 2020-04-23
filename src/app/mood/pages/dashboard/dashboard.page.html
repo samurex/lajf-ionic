@@ -15,40 +15,6 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <!--
-  <ion-card>
-    <ion-card-header>
-      <ion-card-subtitle>Your mood today</ion-card-subtitle>
-      <ion-card-title>Mood card</ion-card-title>
-    </ion-card-header>
-  
-    <ion-card-content>
-      <div *ngIf="user$ | async as user; else userLoading">
-        <ion-list lines="full" >
-          <ion-item>
-            <ion-label>Age</ion-label>
-            <ion-note slot="end">{{ user.age }}</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label>Gender</ion-label>
-            <ion-note slot="end">{{ user.gender | titlecase }}</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label>Occupation</ion-label>
-            <ion-note slot="end">{{ user.occupation | titlecase }}</ion-note>
-          </ion-item>
-        </ion-list>
-        <ng-template #userLoading>
-          <ion-label>
-            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
-            <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
-          </ion-label>
-        </ng-template>
-      </div>
-    </ion-card-content>
-  </ion-card>
-  -->
   <div *ngIf="declarations$ | async as declarations; else declarationsLoading" class="ion-padding">
     <div class="card" *ngFor="let declaration of declarations" [ngStyle]="{ background: 'url(' +  (declaration.image_url || 'http://placehold.it/360x220')  + ')', 'border-color': '#c9c' }">
       <!-- Click on front, show back-->
