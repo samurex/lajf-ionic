@@ -16,7 +16,7 @@
     </ion-fab-button>
   </ion-fab>
   <div *ngIf="declarations$ | async as declarations; else declarationsLoading" class="ion-padding">
-    <div class="card" *ngFor="let declaration of declarations" [ngStyle]="{ background: 'url(' +  (declaration.image_url || 'http://placehold.it/360x220')  + ')', 'border-color': '#c9c' }">
+    <div class="card" *ngFor="let declaration of declarations" [ngStyle]="{ background: 'url(' +  (declaration.image_url || 'http://placehold.it/360x220')  + ') no-repeat center center', 'border-color': '#c9c' }">
       <!-- Click on front, show back-->
       <div class="front">
         <div class="user">
