@@ -5,11 +5,12 @@
     </ion-title>
   </ion-toolbar>
   <ion-toolbar color="primary">
-    <ion-searchbar></ion-searchbar>
-    <!-- <ion-searchbar type="text" (ionInput)="term$.next($event.target.value)"></ion-searchbar>
-    <ion-list *ngIf="results$ | async as results">
-        <ion-item *ngFor="let result of results">{{ results.name }}</ion-item>
-    </ion-list> -->
+    <ion-searchbar type="text" (ionInput)="searchTerm$.next($event.target.value)"></ion-searchbar>
+    <ion-list *ngIf="searchResults$ | async as results">
+        <ion-item *ngFor="let result of results">
+          <ion-button (click)="loadDeclarations(result)">#{{ result.name }}</ion-button>
+        </ion-item>
+    </ion-list>
   </ion-toolbar>
 </ion-header>
 
@@ -26,7 +27,8 @@
         <div class="user">
           <span>{{ declaration.user.age }} years</span>
           <span>{{ declaration.user.gender | titlecase }}</span>
-          <span>Nearby</span>
+          <span *ngIf="declaration.hashtag">#{{ declaration.hashtag.name }}</span>
+          <span>{{ getDistanceText(declaration.distance) }}</span>
         </div>
         <div class="mood">
           <span>a bit</span>

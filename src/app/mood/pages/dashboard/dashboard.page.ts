@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '@lajf-app/mood/services/user.service';
-import { Observable, from, of, Subscription, BehaviorSubject } from 'rxjs';
+import { Observable, from, of, Subscription, BehaviorSubject, Subject, iif } from 'rxjs';
 import { User, Declaration, Hashtag } from '@lajf-app/mood/models';
 import { ModalController, IonRouterOutlet } from '@ionic/angular';
 import { DeclareModalComponent } from './declare-modal/declare-modal.component';
 import { UtilService } from '@lajf-app/core/services';
-import { DeclarationService, MoodService } from '@lajf-app/mood/services';
+import { DeclarationService, MoodService, HashtagService, PositionService } from '@lajf-app/mood/services';
 import * as moment from 'moment';
 
 import { Plugins, GeolocationPosition } from '@capacitor/core';
@@ -21,10 +21,11 @@ import {
   takeUntil,
   skip,
   filter,
+  take,
+  tap,
 } from 'rxjs/operators';
-import { HashtagService } from '@lajf-app/mood/services/hashtag.service';
-const { Storage, Geolocation } = Plugins;
 
+const { Storage } = Plugins;
 
 @Component({
   selector: 'app-dashboard',
@@ -38,26 +39,17 @@ export class DashboardPage implements OnInit {
 
   private position$: Observable<{ latitude: number; longitude: number }>;
 
-  public term$ = new BehaviorSubject<string>('');
-
-  // const autocomplete = (time, selector) => (source$) =>
-  // source$.pipe(
-  //   debounceTime(time),
-  //   switchMap((...args: Hashtag[]) =>
-  //     selector(...args).pipe(takeUntil(source$.pipe(skip(1))))
-  //   )
-  // );
-
-
-
-  // public results$ = this.term$.pipe(
-  //   filter(term => !!term)
-  //   debounceTime(time),
-  //   switchMap((...args: Hashtag[]) =>
-  //   selector(...args).pipe(takeUntil(source$.pipe(skip(1))))
-  // )
-  //   autocomplete(1000, (term: string) => this.hashtagService.search(term))
-  // );
+  public searchTerm$ = new BehaviorSubject<string>('');
+  public searchResults$ = this.searchTerm$.pipe(
+    skip(1),
+    debounceTime(500),
+    switchMap(term => iif(() => term.length === 0, of([]),
+      this.hashtagService
+          .search(term)
+          .pipe(takeUntil(this.searchTerm$.pipe(skip(1))))
+      )
+    )
+  );
 
   constructor(
     private userService: UserService,
@@ -66,53 +58,45 @@ export class DashboardPage implements OnInit {
     private declarationService: DeclarationService,
     private moodService: MoodService,
     private hashtagService: HashtagService,
+    private positionService: PositionService,
     private routerOutlet: IonRouterOutlet
   ) {}
 
   ngOnInit() {
-    this.loadPosition();
-    this.loadDashboard();
-
-    from(Storage.get({ key: 'last_declaration' })).subscribe({
-      next: async ({ value }) => {
-        if (!value || moment().diff(moment(value), 'hours') > 24) {
-          await this.openDeclarationModal();
-        }
-      },
-    });
-  }
-  private loadPosition() {
+    this.user$ = this.userService.get();
     this.position$ = this.util
       .wrapRequest(
-        from(Geolocation.getCurrentPosition()),
+        this.positionService.position$,
         () => 'Unable to get device location',
         null,
         'Waiting for GPS'
-      )
-      .pipe(
-        catchError((err) => {
-          console.log(err);
-          return of(null);
-        }),
-        map((position: GeolocationPosition) => {
-          const { latitude = null, longitude = null } =
-            position !== null ? position.coords : {};
-          return { latitude, longitude };
-        }),
-        publishReplay(),
-        refCount()
       );
+ 
+    this.loadDeclarations(null);
 
-    this.position$.subscribe();
+    // declaration modal
+    this.position$
+      .pipe(
+        take(1),
+        mergeMap((_) => from(Storage.get({ key: 'last_declaration' })))
+      )
+      .subscribe({
+        next: async ({ value }) => {
+          if (!value || moment().diff(moment(value), 'hours') > 24) {
+            await this.openDeclarationModal();
+          }
+        },
+      });
   }
-  private loadDashboard() {
-    this.user$ = this.userService.get();
+  private loadDeclarations(hashtag: Hashtag) {
     this.declarations$ = this.position$.pipe(
+      catchError((_) => of(null)),
       mergeMap((position) => {
         return this.util.wrapRequest(
-          this.declarationService.dashboard(position)
+          this.declarationService.dashboard(position, hashtag)
         );
-      })
+      }),
+      tap(_ => this.searchTerm$.next('')),
     );
   }
 
@@ -129,6 +113,25 @@ export class DashboardPage implements OnInit {
     await modal.onWillDismiss();
 
     Storage.set({ key: 'last_declaration', value: moment().format() });
-    this.loadDashboard();
+    this.loadDeclarations(null);
+  }
+
+  public getDistanceText(distance: number) {
+    // 0-2km Here
+    // 2-5km Very Close
+    // 5-10km Close
+    // 10-50km Far
+    switch (true) {
+      case (distance <= 2):
+        return 'Here';
+      case distance <= 5:
+        return 'Very Close';
+      case distance <= 10:
+        return 'Close';
+      case distance <= 50:
+        return 'Far';
+      default:
+        return 'Very Far';
+    }
   }
 }
