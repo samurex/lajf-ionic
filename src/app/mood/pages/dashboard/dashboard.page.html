@@ -20,26 +20,30 @@
     </ion-fab-button>
   </ion-fab>
   <div *ngIf="declarations$ | async as declarations; else declarationsLoading" class="ion-padding">
-    <div class="card" *ngFor="let declaration of declarations" [ngStyle]="{ background: 'url(' +  (declaration.image_url || 'http://placehold.it/360x220')  + ') no-repeat center center', 'border-color': '#c9c' }">
-      <!-- Click on front, show back-->
-      <div class="front">
-        <div class="user">
-          <span>{{ declaration.user.age }} years</span>
-          <span>{{ declaration.user.gender | titlecase }}</span>
-          <span>Nearby</span>
+    <div class="card" *ngFor="let declaration of declarations">
+      <div class="inner" (click)="flipped = !flipped" [ngClass]="flipped ? 'flipped' : null">
+        <!-- Click on front, show back-->
+        <div class="front" [ngStyle]="{ background: 'url(' +  (declaration.image_url || 'http://placehold.it/360x220')  + ') no-repeat center center', 'background-size': 'cover', 'border-color': 'palevioletred' }">
+          <div class="user">
+            <span>{{ declaration.user.age }} y/o</span>
+            <span>{{ declaration.user.gender | titlecase }}</span>
+            <span>Nearby</span>
+            <span>#hash</span>
+          </div>
+          <div class="mood">
+            <span style="background:palevioletred;">a bit</span>
+            <span style="background:palevioletred;">{{ declaration.mood.name | titlecase }}</span>
+          </div>
+          <div class="likes-bg" style="background:palevioletred;"></div>
+          <div class="likes" style="color:#fff;">
+            <ion-icon name="heart"></ion-icon>
+            511
+          </div>
         </div>
-        <div class="mood">
-          <span>a bit</span>
-          <span>{{ declaration.mood.name | titlecase }}</span>
+        <!-- Click on back, show front-->
+        <div class="back">
+          Baksida!
         </div>
-        <div class="likes" style="background:#c9c;">
-          <ion-icon name="heart"></ion-icon>
-          511
-        </div>
-      </div>
-      <!-- Click on back, show front-->
-      <div class="back" style="display:none">
-      
       </div>
     </div>
   </div>

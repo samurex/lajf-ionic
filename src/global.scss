@@ -77,3 +77,8 @@ ion-list {
         --background-activated: #fff;
     }
 }
+
+ion-tab-bar {
+    padding: 15px 0;
+    box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
