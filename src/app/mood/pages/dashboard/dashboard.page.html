@@ -21,9 +21,9 @@
   </ion-fab>
   <div *ngIf="declarations$ | async as declarations; else declarationsLoading" class="ion-padding">
     <div class="card" *ngFor="let declaration of declarations">
-      <div class="inner" (click)="flipped = !flipped" [ngClass]="flipped ? 'flipped' : null">
+      <div class="inner" (click)="declaration.flipped = !declaration.flipped" [ngClass]="declaration.flipped ? 'flipped' : null">
         <!-- Click on front, show back-->
-        <div class="front" [ngStyle]="{ background: 'url(' +  (declaration.image_url || 'http://placehold.it/360x220')  + ') no-repeat center center', 'background-size': 'cover', 'border-color': 'palevioletred' }">
+        <div class="front" [ngStyle]="{ background: 'url(' +  (declaration.image_url || 'http://placehold.it/360x220')  + ') no-repeat center center', 'background-size': 'cover', 'border-color': '#FF6464' }">
           <div class="user">
             <span>{{ declaration.user.age }} y/o</span>
             <span>{{ declaration.user.gender | titlecase }}</span>
@@ -31,10 +31,10 @@
             <span>#hash</span>
           </div>
           <div class="mood">
-            <span style="background:palevioletred;">a bit</span>
-            <span style="background:palevioletred;">{{ declaration.mood.name | titlecase }}</span>
+            <span style="background:#FF6464;">a bit</span>
+            <span style="background:#FF6464;">{{ declaration.mood.name | titlecase }}</span>
           </div>
-          <div class="likes-bg" style="background:palevioletred;"></div>
+          <div class="likes-bg" style="background:#FF6464;"></div>
           <div class="likes" style="color:#fff;">
             <ion-icon name="heart"></ion-icon>
             511
@@ -42,7 +42,19 @@
         </div>
         <!-- Click on back, show front-->
         <div class="back">
-          Baksida!
+          <div class="body">
+            <p>Hej mitt namn är Maciej, jag har sperma i mustaschen!</p>
+            <p>Hej mitt namn är Maciej, jag har sperma i mustaschen!</p>
+            <p>Hej mitt namn är Maciej, jag har sperma i mustaschen!</p>
+            <p>Hej mitt namn är Maciej, jag har sperma i mustaschen!</p>
+          </div>
+          <div class="footer">
+            <ion-button fill="solid">Send your love</ion-button>
+            <span class="likes">
+              <ion-icon name="heart" color="danger"></ion-icon>
+              511
+            </span>
+          </div>
         </div>
       </div>
     </div>

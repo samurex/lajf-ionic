@@ -1,9 +1,7 @@
 <ion-content>
-  <div class="header">
-    <h1>How are you feeling today?</h1>
-    <h3>Declare your health and share with the world!</h3>
+  <div class="title">
+    <h2>How is it going cutiepie?</h2>
   </div>
-  
   <form [formGroup]="declareForm" novalidate (ngSubmit)="declare(declareForm)">
     <moods-picker formControlName="mood_id" [moods]="moods$ | async"></moods-picker>
     <ion-list lines="none">
@@ -12,17 +10,18 @@
           Put a number on how you feel
           <span *ngIf="declareForm.value.scale !== null" class="ion-float-right">{{ declareForm.value.scale }}/{{ 10 }}</span>
         </ion-label>
-        <ion-range formControlName="scale" min="0" max="10" step="1" snaps="true" color="primary">
+        <ion-range formControlName="scale" min="0" max="10" step="1" color="primary">
         </ion-range>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">
-          Share your feelings
+          Tell us why
           <span class="ion-float-right">{{ declareForm.value.feelings.length }}/{{ MAX_LENGTH }}</span>
         </ion-label>
         <ion-textarea formControlName="feelings" rows="4" maxlength="{{ MAX_LENGTH }}"></ion-textarea>
       </ion-item>
-      <ion-item>
+      <ion-item class="hashtag">
+        <span class="icon">#</span>
         <ion-label position="stacked">
           Hashtag
         </ion-label>
@@ -32,7 +31,7 @@
     <div class="ion-padding-horizontal ion-padding-bottom">
       <!-- Only visible when image is uploaded-->
       <ion-img *ngIf="photo" [src]="photo"src=""></ion-img>
-      <ion-button fill="solid" expand="block" color="light" (click)="takePicture()">
+      <ion-button fill="outline" expand="block" color="primary" (click)="takePicture()">
         <ion-icon slot="start" name="camera-outline"></ion-icon>
         Add a photo
       </ion-button>
