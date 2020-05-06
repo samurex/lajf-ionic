@@ -1,10 +1,15 @@
 
 export interface Declaration {
-    question_1: string;
-    question_2: string;
-    question_3: string;
-    temperature: number;
+    id: number;
+    mood_id: number;
+    scale: number;
+    hashtag: string;
+    feelings: string;
+    image_id: number;
+    share: boolean;
     created_at: Date;
     latitude: number;
     longitude: number;
+    likes: number;
+    liked: boolean;
 }

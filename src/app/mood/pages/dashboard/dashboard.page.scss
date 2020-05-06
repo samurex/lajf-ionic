@@ -1,64 +1,148 @@
 .card {
-    border: 5px solid transparent;
-    position: relative;
     width: 100%;
-    min-height: 360px;
-    border-radius: 10px;
+    min-height: 220px;
     margin-bottom: 25px;
-    box-shadow: 0 20px 20px #eee;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
     background-size: cover;
-    .mood {
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+    .inner {
+        width: 100%;
+        min-height: 220px;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        -webkit-transition: all 600ms;
+        transition: all 600ms;
+        z-index: 20;
+        &.flipped{
+            transform: rotateY(180deg);
+            -webkit-transform: rotateY(180deg);
+        }        
+    }
+    .front, .back {
+        border: 7px solid transparent;
+        overflow: hidden;
         position: absolute;
-        left: 10px;
-        bottom: 10px;
-        display: flex;
-        span {
+        height: 100%;
+        width: 100%;
+        border-radius: 22px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+    .front {
+        -webkit-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+        .mood {
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+            display: flex;
+            span {
+                color: #fff;
+                font-weight: 900;
+                text-transform: uppercase;
+                font-size: 16px;
+                padding: 10px 20px;
+                border-radius: 999px;
+                margin-right: 10px;
+                border: 2px solid #fff;
+            }
+        }
+        .user {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            display: flex;
+            span {
+                color: #fff;
+                font-weight: 900;
+                text-transform: uppercase;
+                font-size: 10px;
+                background: var(--ion-color-primary);
+                padding: 3px 10px;
+                border-radius: 999px;
+                margin-right: 10px;
+                border: 2px solid #fff;
+            }
+        }
+        .likes-bg {
+            position: absolute;
+            bottom: -55px;
+            right: 0px;
+            width: 120px;
+            height: 90px;
+            z-index: 999 !important;
+            transform: skewY(-30deg);
+            ion-icon {
+                margin-right: 5px;
+            }
+        }
+        .likes {
+            position: absolute;
+            bottom: 12px;
+            font-weight: bold;
+            font-size: 18px;
+            right: 12px;
+            z-index: 99999 !important;
             color: #fff;
-            font-weight: 900;
-            text-transform: uppercase;
-            font-size: 12px;
-            background: var(--ion-color-primary);
-            padding: 5px 15px;
-            border-radius: 999px;
-            margin-right: 10px;
-            border: 2px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
-    .user {
-        position: absolute;
-        left: 10px;
-        top: 10px;
+    .back {
+        background: #F5F5F5;
+        border-color: #999;
+        -webkit-transform: rotateY(180deg);
+        transform: rotateY(180deg);
         display: flex;
-        span {
-            color: #fff;
-            font-weight: 900;
-            text-transform: uppercase;
-            font-size: 12px;
+        flex-direction: column;
+        .body {
             background: var(--ion-color-primary);
-            padding: 5px 15px;
-            border-radius: 999px;
-            margin-right: 10px;
+            padding: 0 20px;
             border: 2px solid #fff;
+            margin: 10px;
+            border-radius: 15px;
+            overflow: scroll;
+            color: #fff;
+            flex: 1;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
-    }
-    .likes {
-        background: transparent;
-        position: absolute;
-        bottom: -5px;
-        right: -5px;
-        padding: 10px 12px 12px 10px;
-        z-index: 999 !important;
-        border-radius: 20px 0 20px 0;
-        color: #fff;
-        font-size: 12px;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        ion-icon {
-            margin-right: 5px;
+        .footer {
+            margin: 0 10px 10px 10px;
+            display: flex;
+            ion-button {
+                --background: #FF6464;
+                --border-radius: 13px;
+                flex: 1;
+                margin: 0;
+                text-transform: uppercase;
+                font-weight: bold;
+                letter-spacing: -1px;
+                --border-color: #fff;
+                --border-width: 2px;
+                --border-style: solid;
+                --box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            }
+            .likes {
+                border-radius: 13px;
+                margin-left: 15px;
+                background: #fff;
+                width: 120px;
+                font-size: 18px;
+                color: var(--ion-color-primary);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+                ion-icon {
+                    margin-right: 5px;
+                }
+            }
         }
     }
 }

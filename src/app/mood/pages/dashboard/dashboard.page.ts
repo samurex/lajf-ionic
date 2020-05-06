@@ -134,4 +134,14 @@ export class DashboardPage implements OnInit {
         return 'Very Far';
     }
   }
+
+  public like(declaration: Declaration) {
+    declaration.liked = !declaration.liked;
+    this.declarationService.like(declaration)
+      .subscribe({
+        next: _ => {
+           
+        }
+      })
+  }
 }

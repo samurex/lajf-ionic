@@ -21,6 +21,10 @@ export class DeclarationService {
     return this.http.get<Declaration[]>('map');
   }
 
+  public like(declaration: Declaration) {
+    return this.http.post(`like/${declaration.id}`, {});
+  }
+
   public dashboard(position: Position, hashtag: Hashtag) {
     const latitude = position ? position.latitude : '';
     const longitude = position ? position.longitude : '';

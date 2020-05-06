@@ -21,27 +21,41 @@
     </ion-fab-button>
   </ion-fab>
   <div *ngIf="declarations$ | async as declarations; else declarationsLoading" class="ion-padding">
-    <div class="card" *ngFor="let declaration of declarations" [ngStyle]="{ background: 'url(' +  (declaration.image_url || 'http://placehold.it/360x220')  + ') no-repeat center center', 'border-color': '#c9c' }">
-      <!-- Click on front, show back-->
-      <div class="front">
-        <div class="user">
-          <span>{{ declaration.user.age }} years</span>
-          <span>{{ declaration.user.gender | titlecase }}</span>
-          <span *ngIf="declaration.hashtag">#{{ declaration.hashtag.name }}</span>
-          <span>{{ getDistanceText(declaration.distance) }}</span>
+    <div class="card" *ngFor="let declaration of declarations">
+      <div class="inner" (click)="declaration.flipped = !declaration.flipped" [ngClass]="declaration.flipped ? 'flipped' : null">
+        <!-- Click on front, show back-->
+        <div class="front" [ngStyle]="{ background: 'url(' +  (declaration.image_url || 'http://placehold.it/360x220')  + ') no-repeat center center', 'background-size': 'cover', 'border-color': '#FF6464' }">
+          <div class="user">
+            <span>{{ declaration.user.age }} y/o</span>
+            <span>{{ declaration.user.gender | titlecase }}</span>
+            <span *ngIf="declaration.hashtag">#{{ declaration.hashtag.name }}</span>
+            <span>{{ getDistanceText(declaration.distance) }}</span>
+          </div>
+          <div class="mood">
+            <span style="background:#FF6464;">a bit</span>
+            <span style="background:#FF6464;">{{ declaration.mood.name | titlecase }}</span>
+          </div>
+          <div class="likes-bg" style="background:#FF6464;"></div>
+          <div class="likes" style="color:#fff;">
+            <ion-icon name="heart" color="danger" *ngIf="declaration.liked"></ion-icon>
+            <ion-icon name="heart-outline" color="danger" *ngIf="!declaration.liked"></ion-icon>
+            {{ declaration.likes_count }}
+          </div>
         </div>
-        <div class="mood">
-          <span>a bit</span>
-          <span>{{ declaration.mood.name | titlecase }}</span>
+        <!-- Click on back, show front-->
+        <div class="back">
+          <div class="body">
+            <p>{{ declaration.feelengs }}</p>
+          </div>
+          <div class="footer" (click)="like(declaration)">
+            <ion-button fill="solid">Send your love</ion-button>
+            <span class="likes">
+              <ion-icon name="heart" color="danger" *ngIf="declaration.liked"></ion-icon>
+              <ion-icon name="heart-outline" color="danger" *ngIf="!declaration.liked"></ion-icon>
+              {{ declaration.likes }}
+            </span>
+          </div>
         </div>
-        <div class="likes" style="background:#c9c;">
-          <ion-icon name="heart"></ion-icon>
-          511
-        </div>
-      </div>
-      <!-- Click on back, show front-->
-      <div class="back" style="display:none">
-      
       </div>
     </div>
   </div>
