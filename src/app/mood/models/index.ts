@@ -4,3 +4,5 @@ export * from './gender.model';
 export * from './mood.model';
 export * from './position.model';
 export * from './hashtag.model';
+export * from './declaration.model';
+export * from './declaration-card.model';

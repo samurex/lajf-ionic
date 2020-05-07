@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '@lajf-app/mood/services/user.service';
 import { Observable, from, of, Subscription, BehaviorSubject, Subject, iif } from 'rxjs';
-import { User, Declaration, Hashtag } from '@lajf-app/mood/models';
+import { User, Declaration, Hashtag, DeclarationCard } from '@lajf-app/mood/models';
 import { ModalController, IonRouterOutlet } from '@ionic/angular';
 import { DeclareModalComponent } from './declare-modal/declare-modal.component';
 import { UtilService } from '@lajf-app/core/services';
@@ -34,7 +34,7 @@ const { Storage } = Plugins;
 })
 export class DashboardPage implements OnInit {
   public user$: Observable<User>;
-  public declarations$: Observable<Declaration[]>;
+  public declarations$: Observable<DeclarationCard[]>;
   public moods$ = this.moodService.moods$;
 
   private position$: Observable<{ latitude: number; longitude: number }>;
@@ -96,6 +96,9 @@ export class DashboardPage implements OnInit {
           this.declarationService.dashboard(position, hashtag)
         );
       }),
+      map(declarations => {
+        return declarations.map(d => ({...d, flipped: false }) as DeclarationCard);
+      }),
       tap(_ => this.searchTerm$.next('')),
     );
   }
@@ -140,7 +143,7 @@ export class DashboardPage implements OnInit {
     this.declarationService.like(declaration)
       .subscribe({
         next: _ => {
-           
+
         }
       })
   }

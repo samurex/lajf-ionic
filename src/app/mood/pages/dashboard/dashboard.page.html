@@ -22,10 +22,11 @@
   </ion-fab>
   <div *ngIf="declarations$ | async as declarations; else declarationsLoading" class="ion-padding">
     <div class="card" *ngFor="let declaration of declarations">
-      <div class="inner" (click)="declaration.flipped = !declaration.flipped" [ngClass]="declaration.flipped ? 'flipped' : null">
+      <div class="inner" (click)="declaration.flipped = !declaration.flipped"  [class.flipped]="declaration.flipped">
         <!-- Click on front, show back-->
         <div class="front" [ngStyle]="{ background: 'url(' +  (declaration.image_url || 'http://placehold.it/360x220')  + ') no-repeat center center', 'background-size': 'cover', 'border-color': '#FF6464' }">
           <div class="user">
+            <span>flipped: {{ declaration.flipped }}</span>
             <span>{{ declaration.user.age }} y/o</span>
             <span>{{ declaration.user.gender | titlecase }}</span>
             <span *ngIf="declaration.hashtag">#{{ declaration.hashtag.name }}</span>
