@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "lajf",
+  "appId": "app.lajf.app",
+  "appName": "Lajf",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

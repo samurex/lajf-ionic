@@ -1,11 +1,6 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>
-      Welcome to Lajf
-    </ion-title>
-  </ion-toolbar>
-  <ion-toolbar color="primary">
-    <ion-searchbar></ion-searchbar>
+  <ion-toolbar color="light">
+    <ion-searchbar class="ion-margin-top" placeholder="Search for hashtags" showCancelButton="focus"></ion-searchbar>
     <!-- <ion-searchbar type="text" (ionInput)="term$.next($event.target.value)"></ion-searchbar>
     <ion-list *ngIf="results$ | async as results">
         <ion-item *ngFor="let result of results">{{ results.name }}</ion-item>
@@ -15,7 +10,7 @@
 
 <ion-content>
   <ion-fab vertical="top" horizontal="end" slot="fixed" edge>
-    <ion-fab-button (click)="openDeclarationModal()">
+    <ion-fab-button (click)="openDeclarationModal()" color="primary">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -23,18 +18,18 @@
     <div class="card" *ngFor="let declaration of declarations">
       <div class="inner" (click)="declaration.flipped = !declaration.flipped" [ngClass]="declaration.flipped ? 'flipped' : null">
         <!-- Click on front, show back-->
-        <div class="front" [ngStyle]="{ background: 'url(' +  (declaration.image_url || 'http://placehold.it/360x220')  + ') no-repeat center center', 'background-size': 'cover', 'border-color': '#FF6464' }">
+        <div class="front" [ngStyle]="{ background: 'url(' +  (declaration.image_url || 'http://placehold.it/360x220')  + ') no-repeat center center', 'background-size': 'cover', 'border-color': '#222' }">
           <div class="user">
-            <span>{{ declaration.user.age }} y/o</span>
+            <span>{{ declaration.user.age }}&nbsp;y/o</span>
             <span>{{ declaration.user.gender | titlecase }}</span>
             <span>Nearby</span>
-            <span>#hash</span>
+            <span class="hashtag">#hashtagsonstefan</span>
           </div>
           <div class="mood">
-            <span style="background:#FF6464;">a bit</span>
-            <span style="background:#FF6464;">{{ declaration.mood.name | titlecase }}</span>
+            <span style="background:#222;">a bit</span>
+            <span style="background:#222;">{{ declaration.mood.name | titlecase }}</span>
           </div>
-          <div class="likes-bg" style="background:#FF6464;"></div>
+          <div class="likes-bg" style="background:#222;"></div>
           <div class="likes" style="color:#fff;">
             <ion-icon name="heart"></ion-icon>
             511
@@ -43,7 +38,7 @@
         <!-- Click on back, show front-->
         <div class="back">
           <div class="body">
-            <p>Hej mitt namn är Maciej, jag har sperma i mustaschen!</p>
+            <p>Hej mitt namn är Maciej, jag har spärma i mustaschen!</p>
             <p>Hej mitt namn är Maciej, jag har sperma i mustaschen!</p>
             <p>Hej mitt namn är Maciej, jag har sperma i mustaschen!</p>
             <p>Hej mitt namn är Maciej, jag har sperma i mustaschen!</p>

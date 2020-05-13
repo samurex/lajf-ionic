@@ -81,4 +81,11 @@ ion-list {
 ion-tab-bar {
     padding: 15px 0;
     box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    .tab-selected {
+        color: var(--ion-color-primary) !important;
+    }
+}
+
+.searchbar-input.sc-ion-searchbar-ios {
+    border-radius: 999px !important;
 }

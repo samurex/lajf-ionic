@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>lajf</string>
+        <string>Lajf</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -30,19 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>IonApi</key>
-	<string>https://api.ionicjs.com</string>
-	<key>IonAppId</key>
-	<string>6b2686e1</string>
-	<key>IonChannelName</key>
-	<string>Staging</string>
-	<key>IonMaxVersions</key>
-	<string>2</string>
-	<key>IonMinBackgroundDuration</key>
-	<string>30</string>
-	<key>IonUpdateMethod</key>
-	<string>background</string>
+	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -83,8 +71,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 </dict>
