@@ -30,7 +30,25 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
+<<<<<<< HEAD
 	<string>1</string>
+=======
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>IonApi</key>
+	<string>https://api.ionicjs.com</string>
+	<key>IonAppId</key>
+	<string>6b2686e1</string>
+	<key>IonChannelName</key>
+	<string>Staging</string>
+	<key>IonMaxVersions</key>
+	<string>2</string>
+	<key>IonMinBackgroundDuration</key>
+	<string>30</string>
+	<key>IonUpdateMethod</key>
+	<string>background</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
+>>>>>>> b3d9a0704769ccc47df1a276b4928f33decf136d
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

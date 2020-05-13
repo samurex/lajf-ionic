@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Declaration } from '@lajf-app/mood/models';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Declaration, Hashtag, Position } from '@lajf-app/mood/models';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,16 @@ export class DeclarationService {
     return this.http.get<Declaration[]>('map');
   }
 
-  public dashboard({ latitude, longitude }: { latitude: number, longitude: number }) {
-    return this.http.get<Declaration[]>(`dashboard?latitude=${latitude || ''}&longitude=${longitude || ''}`);
+  public like(declaration: Declaration) {
+    return this.http.post(`like/${declaration.id}`, {});
+  }
+
+  public dashboard(position: Position, hashtag: Hashtag) {
+    const latitude = position ? position.latitude : '';
+    const longitude = position ? position.longitude : '';
+    const hashtagId = hashtag ? hashtag.id : '';
+    const url = `dashboard?latitude=${latitude}&longitude=${longitude}&hashtag_id=${hashtagId}`;
+
+    return this.http.get<Declaration[]>(url);
   }
 }
